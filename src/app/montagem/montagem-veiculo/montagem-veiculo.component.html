@@ -1,170 +1,73 @@
-
 <div class="container">
-  <h1>Montagem de Veículo</h1>
   <form>
     <ol class="breadcrumb mb-4">
-      <li class="breadcrumb-item active">Chasi</li>
+      <li class="breadcrumb-item active">Montagem de Veículo</li>
     </ol>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+          {{mensagemErro}}
+        </div>
+      </div>
+    </div>
+
 
     <div class="row">
       <div class="col-md-3">
+        <div class="form-group">
+          <label>Chasi: </label>
+          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idChasi">
+            <option *ngFor="let chasi of chasis" [ngValue]="chasi.id">
+              Cod. {{ chasi.codigo }} | Marca {{ chasi.marca }} | R$ {{ chasi.preco }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Motor: </label>
+          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idMotor">
+            <option *ngFor="let motor of motores" [ngValue]="motor.id">
+              Cod. {{ motor.codigo }} | Marca {{ motor.marca }} | R$ {{ motor.preco }} 
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Cor: </label>
+          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idCor">
+            <option *ngFor="let cor of cores" [ngValue]="cor.id">
+             Cor {{ cor.descricao }} | {{ cor.tipo }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Pneu: </label>
+          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idPneu">
+            <option *ngFor="let pneu of pneus" [ngValue]="pneu.id">
+             Aro {{ pneu.aro }} | R$ {{ pneu.preco }} Cada
+            </option>
+          </select>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="row">
+      <div class="col-md-3">
         <button type="button" class="btn btn-outline-success ml-1" (click)="calcularMontagem()">
-          Calcular
+          Calcular Montagem
         </button>
-
+        <br>
+        <p> Valor da Montagem : R$  {{ valorMontagem }} </p>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>Codigo: </label>
-          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idChasi">
-            <option value="">Selecione...</option>
-            <option *ngFor="let montagemVeiculo of montagemVeiculos" 
-            [ngValue]="chasi.id">
-              {{ chasi.codigo }}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>Marca: </label>
-          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idChasi">
-            <option value="">Selecione...</option>
-            <option *ngFor="let montagemVeiculo of montagemVeiculos" 
-            [ngValue]="chasi.id">
-              {{ chasi.marca }}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>Preço: </label>
-          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idChasi">
-            <option value="">Selecione...</option>
-            <option *ngFor="let montagemVeiculo of montagemVeiculos" 
-            [ngValue]="chasi.id">
-              {{ chasi.preco }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-
-    <ol class="breadcrumb mb-4">
-      <li class="breadcrumb-item active">Cor</li>
-    </ol>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Descrição: </label>
-          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idCor">
-            <option value="">Selecione...</option>
-            <option *ngFor="let montagemVeiculo of montagemVeiculos" 
-            [ngValue]="cor.id">
-              {{ cor.descricao }}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Tipo: </label>
-          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idCor">
-            <option value="">Selecione...</option>
-            <option *ngFor="let montagemVeiculo of montagemVeiculos" 
-            [ngValue]="cor.id">
-              {{ cor.tipo }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <ol class="breadcrumb mb-4">
-      <li class="breadcrumb-item active">Motor</li>
-    </ol>
-
-    <div class="row">
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>Codigo: </label>
-          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idMotor">
-            <option value="">Selecione...</option>
-            <option *ngFor="let montagemVeiculo of montagemVeiculos" 
-            [ngValue]="motor.id">
-              {{ motor.codigo }}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>Marca: </label>
-          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idMotor">
-            <option value="">Selecione...</option>
-            <option *ngFor="let montagemVeiculo of montagemVeiculos" 
-            [ngValue]="motor.id">
-              {{ motor.marca }}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="form-group">
-          <label>Preço: </label>
-          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idMotor">
-            <option value="">Selecione...</option>
-            <option *ngFor="let montagemVeiculo of montagemVeiculos" 
-            [ngValue]="motor.id">
-              {{ motor.preco }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <ol class="breadcrumb mb-4">
-      <li class="breadcrumb-item active">Pneu</li>
-    </ol>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Aro: </label>
-          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idPneu">
-            <option value="">Selecione...</option>
-            <option *ngFor="let montagemVeiculo of montagemVeiculos" 
-            [ngValue]="pneu.id">
-              {{ pneu.aro }}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Preço: </label>
-          <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="montagemVeiculo.idPneu">
-            <option value="">Selecione...</option>
-            <option *ngFor="let montagemVeiculo of montagemVeiculos" 
-            [ngValue]="pneu.id">
-              {{ pneu.preco }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </div>
-
   </form>
 </div>

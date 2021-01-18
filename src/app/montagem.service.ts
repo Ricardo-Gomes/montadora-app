@@ -11,9 +11,13 @@ export class MontagemService {
 
   constructor(private http : HttpClient) { }
 
-  apiUrl : string = environment.apiUrl + '/api/montagem';
+ // apiUrl : string = environment.apiUrl + '/api/montagem';
 
   realizarMontagem(montagemVeiculo: MontagemVeiculo): Observable<MontagemVeiculo> {
-    return this.http.post<MontagemVeiculo>(`${this.apiUrl}`, montagemVeiculo);
+    return this.http.post<MontagemVeiculo>('http://localhost:8080/api/montagem', montagemVeiculo);
+  }
+
+  getVeiculo(): Observable<MontagemVeiculo[]>{
+    return this.http.get<MontagemVeiculo[]>('http://localhost:8080/api/montagem');
   }
 }
